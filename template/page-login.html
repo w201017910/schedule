@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Widget</title>
+
+    <!-- ================= Favicon ================== -->
+
+    <!-- Styles -->
+    <link href="assets/css/lib/font-awesome.min.css" rel="stylesheet">
+    <link href="assets/css/lib/themify-icons.css" rel="stylesheet">
+    <link href="assets/css/lib/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/css/lib/unix.css" rel="stylesheet">
+    <link href="assets/css/style.css" rel="stylesheet">
+</head>
+
+<body class="bg-primary">
+
+    <div class="unix-login">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-lg-offset-3">
+                    <div class="login-content">
+                        <div class="login-logo">
+                            <a href="index.html"><span>Foodmin</span></a>
+                        </div>
+                        <div class="login-form">
+                            <h4>Administratior Login</h4>
+                            <form>
+                                <div class="form-group">
+                                    <label>请输入账户</label>
+                                    <input id="account" type="text" class="form-control" placeholder="account">
+                                </div>
+                                <div class="form-group">
+                                    <label>请输入密码</label>
+                                    <input id="passwd" type="password" class="form-control" placeholder="Password">
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+										<input type="checkbox"> 记住我
+									</label>
+                                    <label class="pull-right">
+										<a href="#">忘记密码?</a>
+									</label>
+
+                                </div>
+                                <button id="login" type="button" class="btn btn-primary btn-flat m-b-30 m-t-30">登录</button>
+
+                                <div class="register-link m-t-15 text-center">
+                                    <p>Don't have account ? <a href="#"> Sign Up Here</a></p>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+<script src="assets/js/lib/jquery.min.js"></script>
+<script>
+    $(function(){
+
+        $('#login').click(function(event){
+            event.preventDefault();
+
+            $.ajax({
+                url: '/login',
+                type: 'POST',
+                data:{
+                    "account": $("#account").val(),
+                    "passwd": $("#passwd").val()
+                },
+                success: function(data){
+
+                    if (data) {
+                        alert("登录成功")
+                        window.location.href = "/";
+                    } else {
+                        alert("登录失败")
+                    }
+                }
+            });
+        });
+    });
+
+</script>
+</html>
