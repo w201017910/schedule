@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Class Information </title>
+
+  <!-- ================= Favicon ================== -->
+
+  <!-- Styles -->
+  <link href="assets/css/lib/calendar2/pignose.calendar.min.css" rel="stylesheet">
+  <link href="assets/css/lib/font-awesome.min.css" rel="stylesheet">
+  <link href="assets/css/lib/themify-icons.css" rel="stylesheet">
+  <link href="assets/css/lib/menubar/sidebar.css" rel="stylesheet">
+  <link href="assets/css/lib/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/css/lib/unix.css" rel="stylesheet">
+  <link href="assets/css/style.css" rel="stylesheet">
+</head>
+
+<body class="sidebar-hide">
+
+<div class="sidebar">
+  <div class="nano">
+    <div class="nano-content">
+      <ul>
+
+        <li class="active"><a class="sidebar-sub-toggle"><i class="ti-home"></i> 教师管理 <span class="sidebar-collapse-icon ti-angle-down"></span></a>
+          <ul>
+            <li><a href="/">添加教师</a></li>
+            <li><a href="/table-jsgrid.html">教师列表</a></li>
+
+          </ul>
+        </li>
+
+        <li><a class="sidebar-sub-toggle"><i class="ti-pencil-alt"></i>教室管理</a>
+          <ul>
+            <li><a href="/addroom.html">添加教室</a></li>
+            <li><a href="/room.html">管理教室</a></li>
+
+          </ul>
+        </li>
+        <li><a class="sidebar-sub-toggle"><i class="ti-pencil-alt"></i>班级管理</a>
+          <ul>
+            <li><a href="/addclass.html">添加班级</a></li>
+            <li><a href="/class.html">管理班级</a></li>
+
+          </ul>
+        </li>
+      </ul>
+
+    </div>
+  </div>
+</div>
+<!-- /# sidebar -->
+
+<div class="header">
+  <div class="pull-left">
+    <div class="logo"><a href="/"><span>排课系统</span></a></div>
+    <div class="hamburger sidebar-toggle">
+      <span class="line"></span>
+      <span class="line"></span>
+      <span class="line"></span>
+    </div>
+  </div>
+
+  <div class="pull-right p-r-15">
+    <ul>
+
+
+      <li class="header-icon dib"><img class="avatar-img" src="assets/images/avatar/1.jpg" alt="" /> <span class="user-avatar">john <i class="ti-angle-down f-s-10"></i></span>
+        <div class="drop-down dropdown-profile">
+
+          <div class="dropdown-content-body">
+            <ul>
+
+              <li><a href="#"><i class="ti-power-off"></i> <span>Logout</span></a></li>
+            </ul>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+
+
+
+
+<div class="content-wrap">
+  <div class="main">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-lg-8 p-r-0 title-margin-right">
+          <div class="page-header">
+            <div class="page-title">
+              <h1>添加教师</h1>
+            </div>
+          </div>
+        </div>
+        <!-- /# column -->
+        <div class="col-lg-4 p-l-0 title-margin-left">
+          <div class="page-header">
+            <div class="page-title">
+
+            </div>
+          </div>
+        </div>
+        <!-- /# column -->
+      </div>
+      <!-- /# row -->
+      <form>
+        <section id="main-content">
+          <div class="card alert">
+            <div class="card-body">
+              <div class="card-header m-b-20">
+                <h4>教师信息</h4>
+                <div class="card-header-right-icon">
+                  <ul>
+                    <li class="card-close" data-dismiss="alert"><i class="ti-close"></i></li>
+                    <li class="card-option drop-menu"><i class="ti-settings" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" role="link"></i>
+                      <ul class="card-option-dropdown dropdown-menu">
+                        <li><a href="#"><i class="ti-loop"></i> Update data</a></li>
+                        <li><a href="#"><i class="ti-menu-alt"></i> Detail log</a></li>
+                        <li><a href="#"><i class="ti-pulse"></i> Statistics</a></li>
+                        <li><a href="#"><i class="ti-power-off"></i> Clear ist</a></li>
+                      </ul>
+                    </li>
+                    <li class="doc-link"><a href="#"><i class="ti-link"></i></a></li>
+                  </ul>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-3">
+                  <div class="basic-form">
+                    <div class="form-group">
+                      <label>教师姓名</label>
+                      <input id="name" type="text" class="form-control border-none input-flat bg-ash" placeholder="">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-3">
+                  <div class="basic-form">
+                    <div class="form-group">
+                      <label>性别</label>
+                      <select id="sex" class="form-control bg-ash border-none">
+                        <option></option>
+                        <option>男</option>
+                        <option>女</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="basic-form">
+                    <div class="form-group">
+                      <label>学工号</label>
+                      <input id="workID" type="text" class="form-control border-none input-flat bg-ash" placeholder="">
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-3">
+                  <div class="basic-form">
+                    <div class="form-group">
+                      <label>电话号码</label>
+                      <input id="phone" type="text" class="form-control border-none input-flat bg-ash" placeholder="">
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="basic-form">
+                    <div class="form-group">
+                      <label>E-mail</label>
+                      <input id="email" type="text" class="form-control border-none input-flat bg-ash" placeholder="">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <button id="add" class="btn btn-default btn-lg m-b-10 bg-warning border-none m-r-5 sbmt-btn" type="button">添加</button>
+              <button class="btn btn-default btn-lg m-b-10 m-l-5 sbmt-btn" type="reset">清空</button>
+            </div>
+          </div>
+
+
+        </section>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<div id="search">
+  <button type="button" class="close">×</button>
+  <form>
+    <input type="search" value="" placeholder="type keyword(s) here" />
+    <button type="submit" class="btn btn-primary">Search</button>
+  </form>
+</div>
+<!-- jquery vendor -->
+<script src="assets/js/lib/jquery.min.js"></script>
+<script src="assets/js/lib/jquery.nanoscroller.min.js"></script>
+<!-- nano scroller -->
+<script src="assets/js/lib/menubar/sidebar.js"></script>
+<script src="assets/js/lib/preloader/pace.min.js"></script>
+<!-- sidebar -->
+<script src="assets/js/lib/bootstrap.min.js"></script>
+<!-- bootstrap -->
+
+
+<script src="assets/js/lib/calendar-2/moment.latest.min.js"></script>
+<!-- scripit init-->
+<script src="assets/js/lib/calendar-2/semantic.ui.min.js"></script>
+<!-- scripit init-->
+<script src="assets/js/lib/calendar-2/prism.min.js"></script>
+<!-- scripit init-->
+<script src="assets/js/lib/calendar-2/pignose.calendar.min.js"></script>
+<!-- scripit init-->
+<script src="assets/js/lib/calendar-2/pignose.init.js"></script>
+<!-- scripit init-->
+
+<script src="assets/js/scripts.js"></script>
+<!-- scripit init-->
+
+
+
+
+<script>
+  $(function(){
+
+    $('#add').click(function(event){
+      event.preventDefault();
+
+      $.ajax({
+        url: '/addTeacher',
+        type: 'POST',
+        data:{
+          "name": $("#name").val(),
+          "sex": $("#sex").val(),
+          "workID": $("#workID").val(),
+          "phone": $("#phone").val(),
+          "email": $("#email").val()
+
+
+        },
+        success: function(data){
+
+          if (data) {
+            alert("添加成功")
+            window.location.href = "/";
+          } else {
+            alert("添加失败")
+          }
+        }
+      });
+    });
+  });
+
+</script>
+
+</body>
+
+</html>

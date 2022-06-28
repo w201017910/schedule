@@ -5,6 +5,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"schedule/config"
 	"schedule/database"
+	"strings"
 )
 
 func Login(c *gin.Context) {
@@ -43,11 +44,45 @@ func AllTeacher(c *gin.Context) {
 	c.JSON(200, i)
 }
 func ChangeTeachers(c *gin.Context) {
-	fmt.Println(c.PostForm("Id"), c.PostForm("Name"), c.PostForm("Sex"), c.PostForm("Phone"), c.PostForm("Email"), c.PostForm("WorkId"))
+
 	err := database.ChangeTeacher(c.PostForm("Id"), c.PostForm("Name"), c.PostForm("Sex"), c.PostForm("Phone"), c.PostForm("Email"), c.PostForm("WorkId"))
 	if err != nil {
 		c.JSON(200, "修改失败")
 		return
 	}
 	c.JSON(200, "修改成功")
+}
+func AddRoom(c *gin.Context) {
+	name := c.PostForm("name")
+	college := c.PostForm("college")
+	number := c.PostForm("number")
+	collegeId := strings.Split(college, "-")[0]
+	err := database.AddRoom(name, number, collegeId)
+	if err != nil {
+		c.JSON(200, false)
+		return
+	}
+	c.JSON(200, true)
+}
+func ChangeRoom(c *gin.Context) {
+	id := c.PostForm("Id")
+	name := c.PostForm("Name")
+	number := c.PostForm("Number")
+	CollegeName := c.PostForm("CollegeName")
+	collegeId := strings.Split(CollegeName, "-")[0]
+	err := database.ChangeRoom(id, name, number, collegeId)
+	if err != nil {
+		c.JSON(200, false)
+		return
+	}
+	c.JSON(200, true)
+}
+func DelRoom(c *gin.Context) {
+	id := c.PostForm("Id")
+	err := database.DelRoom(id)
+	if err != nil {
+		c.JSON(200, false)
+		return
+	}
+	c.JSON(200, true)
 }

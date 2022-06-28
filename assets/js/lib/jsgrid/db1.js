@@ -1,13 +1,4 @@
 (function() {
-    // $.ajax({
-    //     url: '/allTeacher',
-    //     type: 'POST',
-    //     data:{
-    //     },
-    //     success: function(data){
-    //         db.clients=data
-    //     }
-    // });
 
 
 
@@ -19,10 +10,8 @@
             return $.grep(this.clients, function(client) {
 
                 return (!filter.Name || client.Name.indexOf(filter.Name) > -1)
-                    && (filter.Sex === undefined || client.Sex === filter.Sex)
-                    && (!filter.WorkId || client.WorkId.indexOf(filter.WorkId) > -1)
-                    && (!filter.Phone || client.Phone === filter.Phone)
-                    && (filter.Email === undefined || client.Email === filter.Email);
+                    && (filter.CollegeName === undefined || client.Sex === filter.Sex)
+                    && (!filter.Number || client.WorkId.indexOf(filter.WorkId) > -1);
             });
         },
 
@@ -33,24 +22,42 @@
 
         updateItem: function(updatingClient) {
             $.ajax({
-                url: '/changeTeacher',
+                url: '/changeRoom',
                 type: 'POST',
                 data:{
                     Id:updatingClient.Id,
                     Name:updatingClient.Name,
-                    Sex:updatingClient.Sex,
-                    Phone:updatingClient.Phone,
-                    Email:updatingClient.Email,
-                    WorkId:updatingClient.WorkId,
+                    Number:updatingClient.Number,
+                    CollegeName:updatingClient.CollegeName,
+
 
                 },
                 success: function(data){
-                    alert(data)
+                    if (data){
+                        alert("修改成功")
+                    }else {
+                        alert("修改失败")
+                    }
                 }
             });
         },
 
         deleteItem: function(deletingClient) {
+            $.ajax({
+                url: '/delRoom',
+                type: 'POST',
+                data:{
+                    Id:deletingClient.Id,
+
+                },
+                success: function(data){
+                   if (data){
+                       alert("删除成功")
+                   }else {
+                       alert("删除失败")
+                   }
+                }
+            });
             var clientIndex = $.inArray(deletingClient, this.clients);
             this.clients.splice(clientIndex, 1);
         }
@@ -60,13 +67,9 @@
     window.db = db;
 
 
-    db.countries = [
-        { Name: "女"},
-        { Name: "男"},
+    db.countries = college
 
-    ];
-
-    db.clients=teachers
+    db.clients=rooms
 
     db.users = [
         {
@@ -81,6 +84,6 @@
             "RegisterDate": "2011-02-22T05:59:55-08:00"
         },
 
-     ];
+    ];
 
 }());
