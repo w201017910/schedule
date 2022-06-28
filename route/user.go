@@ -86,3 +86,41 @@ func DelRoom(c *gin.Context) {
 	}
 	c.JSON(200, true)
 }
+func AddClass(c *gin.Context) {
+	name := c.PostForm("name")
+	number := c.PostForm("number")
+	college := c.PostForm("college")
+	room := c.PostForm("room")
+	collegeId := strings.Split(college, "-")[0]
+	roomId := strings.Split(room, "-")[0]
+	err := database.AddClass(name, number, collegeId, roomId)
+	if err != nil {
+		c.JSON(200, false)
+		return
+	}
+	c.JSON(200, true)
+}
+func ChangeClass(c *gin.Context) {
+	id := c.PostForm("Id")
+	name := c.PostForm("Name")
+	number := c.PostForm("Number")
+	college := c.PostForm("college")
+	DefaultRoom := c.PostForm("DefaultRoom")
+	collegeId := strings.Split(college, "-")[0]
+	DefaultRoomId := strings.Split(DefaultRoom, "-")[0]
+	err := database.ChangeClass(id, name, number, collegeId, DefaultRoomId)
+	if err != nil {
+		c.JSON(200, false)
+		return
+	}
+	c.JSON(200, true)
+}
+func DelClass(c *gin.Context) {
+	id := c.PostForm("Id")
+	err := database.DelClass(id)
+	if err != nil {
+		c.JSON(200, false)
+		return
+	}
+	c.JSON(200, true)
+}

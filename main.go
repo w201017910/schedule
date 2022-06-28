@@ -20,6 +20,7 @@ func Start(addr string) (err error) {
 	r.GET("/addroom.html", route.RoomPage)
 	r.GET("/room.html", route.Room)
 	r.GET("/addclass.html", route.ClassPage)
+	r.GET("/class.html", route.ClassMange)
 	r.POST("/login", route.Login)
 	r.POST("/addTeacher", route.AddTeacher)
 	r.POST("/allTeacher", route.AllTeacher)
@@ -27,6 +28,9 @@ func Start(addr string) (err error) {
 	r.POST("/addRoom", route.AddRoom)
 	r.POST("/changeRoom", route.ChangeRoom)
 	r.POST("/delRoom", route.DelRoom)
+	r.POST("/addClass", route.AddClass)
+	r.POST("/changeClass", route.ChangeClass)
+	r.POST("/delClass", route.DelClass)
 	err = r.Run(addr)
 	return err
 }

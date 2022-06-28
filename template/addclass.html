@@ -135,20 +135,28 @@
                 <div class="col-md-3">
                   <div class="basic-form">
                     <div class="form-group">
-                      <label>教师姓名</label>
+                      <label>班级名称</label>
                       <input id="name" type="text" class="form-control border-none input-flat bg-ash" placeholder="">
                     </div>
                   </div>
                 </div>
-
                 <div class="col-md-3">
                   <div class="basic-form">
                     <div class="form-group">
-                      <label>性别</label>
-                      <select id="sex" class="form-control bg-ash border-none">
-                        <option></option>
-                        <option>男</option>
-                        <option>女</option>
+                      <label>班级人数</label>
+                      <input id="number" type="text" class="form-control border-none input-flat bg-ash" placeholder="">
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="basic-form">
+                    <div class="form-group">
+                      <label>所属学院</label>
+                      <select id="college" class="form-control bg-ash border-none">
+
+                        {{range $i,$v := .college}}
+                        <option >{{$v.Id}}-{{$v.Name}}-{{$v.Name1}}</option>
+                        {{end}}
                       </select>
                     </div>
                   </div>
@@ -156,30 +164,18 @@
                 <div class="col-md-3">
                   <div class="basic-form">
                     <div class="form-group">
-                      <label>学工号</label>
-                      <input id="workID" type="text" class="form-control border-none input-flat bg-ash" placeholder="">
+                      <label>默认教室</label>
+                      <select id="room" class="form-control bg-ash border-none">
+                        {{range $i,$v := .room}}
+                        <option >{{$v.Id}}-{{$v.Name}}</option>
+                        {{end}}
+                      </select>
                     </div>
                   </div>
                 </div>
               </div>
 
-              <div class="row">
-                <div class="col-md-3">
-                  <div class="basic-form">
-                    <div class="form-group">
-                      <label>电话号码</label>
-                      <input id="phone" type="text" class="form-control border-none input-flat bg-ash" placeholder="">
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-3">
-                  <div class="basic-form">
-                    <div class="form-group">
-                      <label>E-mail</label>
-                      <input id="email" type="text" class="form-control border-none input-flat bg-ash" placeholder="">
-                    </div>
-                  </div>
-                </div>
+
               </div>
               <button id="add" class="btn btn-default btn-lg m-b-10 bg-warning border-none m-r-5 sbmt-btn" type="button">添加</button>
               <button class="btn btn-default btn-lg m-b-10 m-l-5 sbmt-btn" type="reset">清空</button>
@@ -239,14 +235,14 @@
       event.preventDefault();
 
       $.ajax({
-        url: '/addTeacher',
+        url: '/addClass',
         type: 'POST',
         data:{
           "name": $("#name").val(),
-          "sex": $("#sex").val(),
-          "workID": $("#workID").val(),
-          "phone": $("#phone").val(),
-          "email": $("#email").val()
+          "number": $("#number").val(),
+          "college": $("#college").val(),
+          "room": $("#room").val(),
+
 
 
         },
@@ -254,7 +250,7 @@
 
           if (data) {
             alert("添加成功")
-            window.location.href = "/";
+
           } else {
             alert("添加失败")
           }
