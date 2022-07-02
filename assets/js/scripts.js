@@ -83,7 +83,7 @@
             if (s == "") {
                 return false;
             } else {
-                $(".tdl-content ul").append("<li><label><input type='checkbox'><i></i><span>" + v + "</span><a href='#' class='ti-close'></a></label></li>");
+                $(".tdl-content ul").append("<li><label><input class='cc' type='checkbox'><i></i><span class='cc1'>" + v + "</span><a href='#' class='ti-close'></a></label></li>");
                 $(this).val("");
             }
         }

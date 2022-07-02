@@ -124,3 +124,18 @@ func DelClass(c *gin.Context) {
 	}
 	c.JSON(200, true)
 }
+func AddCurriculum(c *gin.Context) {
+	ban := c.PostForm("ban")
+	className := c.PostForm("className")
+	name := c.PostForm("name")
+	teacher := c.PostForm("teacher")
+	timeLong := c.PostForm("timeLong")
+	totalTime := c.PostForm("totalTime")
+	year := c.PostForm("year")
+	err := database.AddCurriculum(name, teacher, timeLong, totalTime, year, className, ban)
+	if err != nil {
+		c.JSON(200, false)
+		return
+	}
+	c.JSON(200, true)
+}

@@ -102,7 +102,7 @@
                     <div class="col-lg-8 p-r-0 title-margin-right">
                         <div class="page-header">
                             <div class="page-title">
-                                <h1>添加教师</h1>
+                                <h1>添加课程</h1>
                             </div>
                         </div>
                     </div>
@@ -122,7 +122,7 @@
                        <div class="card alert">
                            <div class="card-body">
                                <div class="card-header m-b-20">
-                                   <h4>教师信息</h4>
+                                   <h4>课程信息</h4>
                                    <div class="card-header-right-icon">
                                        <ul>
                                            <li class="card-close" data-dismiss="alert"><i class="ti-close"></i></li>
@@ -142,7 +142,7 @@
                                    <div class="col-md-3">
                                        <div class="basic-form">
                                            <div class="form-group">
-                                               <label>教师姓名</label>
+                                               <label>课程名称</label>
                                                <input id="name" type="text" class="form-control border-none input-flat bg-ash" placeholder="">
                                            </div>
                                        </div>
@@ -151,11 +151,12 @@
                                    <div class="col-md-3">
                                        <div class="basic-form">
                                            <div class="form-group">
-                                               <label>性别</label>
-                                               <select id="sex" class="form-control bg-ash border-none">
-                                                   <option></option>
-                                                   <option>男</option>
-                                                   <option>女</option>
+                                               <label>授课老师</label>
+                                               <select id="teacher" class="form-control bg-ash border-none">
+
+                                                   {{range $i,$v := .teacher}}
+                                                   <option >{{$v.Id}}-{{$v.Name}}</option>
+                                                   {{end}}
                                                </select>
                                            </div>
                                        </div>
@@ -163,8 +164,8 @@
                                    <div class="col-md-3">
                                        <div class="basic-form">
                                            <div class="form-group">
-                                               <label>学工号</label>
-                                               <input id="workID" type="text" class="form-control border-none input-flat bg-ash" placeholder="">
+                                               <label>授课时长</label>
+                                               <input id="timeLong" type="text" class="form-control border-none input-flat bg-ash" placeholder="">
                                            </div>
                                        </div>
                                    </div>
@@ -174,20 +175,102 @@
                                    <div class="col-md-3">
                                        <div class="basic-form">
                                            <div class="form-group">
-                                               <label>电话号码</label>
-                                               <input id="phone" type="text" class="form-control border-none input-flat bg-ash" placeholder="">
+                                               <label>总课时</label>
+                                               <input id="totalTime" type="text" class="form-control border-none input-flat bg-ash" placeholder="">
                                            </div>
                                        </div>
                                    </div>
                                    <div class="col-md-3">
                                        <div class="basic-form">
                                            <div class="form-group">
-                                               <label>E-mail</label>
-                                               <input id="email" type="text" class="form-control border-none input-flat bg-ash" placeholder="">
+                                               <label>学年</label>
+                                               <select id="year" class="form-control bg-ash border-none">
+                                                   <option>2022年第一学期</option>
+                                                   <option>2022年第二学期</option>
+                                               </select>
                                            </div>
                                        </div>
                                    </div>
                                </div>
+
+
+
+                               <div class="row">
+                                   <div class="col-lg-12">
+                                       <div class="card alert">
+                                           <div class="card-header">
+                                               <h4>上课班级</h4>
+                                               <div class="card-header-right-icon">
+                                                   <ul>
+                                                       <li class="card-close" data-dismiss="alert"><i class="ti-close"></i></li>
+                                                       <li class="doc-link"><a href="#"><i class="ti-link"></i></a></li>
+                                                   </ul>
+                                               </div>
+                                           </div>
+                                           <div class="todo-list">
+                                               <div class="tdl-holder">
+                                                   <div class="tdl-content">
+                                                       <ul>
+
+                                                       </ul>
+                                                   </div>
+                                                   <input type="text" class="tdl-new form-control" placeholder="添加班级">
+                                               </div>
+                                           </div>
+                                       </div><!-- /# card -->
+                                   </div><!-- /# column -->
+                               </div><!-- /# row -->
+
+
+                               <div class="row">
+                                   <div class="col-lg-12">
+                                       <div class="footer">
+                                           <p><span id="date-time"></span> <a href="#" class="page-refresh"></a></p>
+                                       </div>
+                                   </div>
+                               </div>
+
+                               <div class="card alert">
+                               <div class="card-header">
+                                   <h4>教师无法上课时间段 </h4>
+                                   <div class="card-header-right-icon">
+                                       <ul>
+                                           <li class="card-close" data-dismiss="alert"><i class="ti-close"></i></li>
+                                           <li class="doc-link"><a href="#"><i class="ti-link"></i></a></li>
+                                       </ul>
+                                   </div>
+                               </div>
+                               <div class="todo-list">
+                                   <div class="tdl-holder">
+                                       <div class="tdl-content">
+                                           <ul>
+                                               <li><label><input class="try" type="checkbox"><i></i><span>星期一8:30-10:10</span></label></li>
+                                               <li><label><input class="try" type="checkbox"><i></i><span>星期一10:20-12:00</span></label></li>
+                                               <li><label><input class="try" type="checkbox"><i></i><span>星期一14:00-15:40</span></label></li>
+                                               <li><label><input class="try" type="checkbox"><i></i><span>星期一15:50-17:30</span></label></li>
+                                               <li><label><input class="try" type="checkbox"><i></i><span>星期二8:30-10:10</span></label></li>
+                                               <li><label><input class="try" type="checkbox"><i></i><span>星期二10:20-12:00</span></label></li>
+                                               <li><label><input class="try" type="checkbox"><i></i><span>星期二14:00-15:40</span></label></li>
+                                               <li><label><input class="try" type="checkbox"><i></i><span>星期二15:50-17:30</span></label></li>
+                                               <li><label><input class="try" type="checkbox"><i></i><span>星期三8:30-10:10</span></label></li>
+                                               <li><label><input class="try" type="checkbox"><i></i><span>星期三10:20-12:00</span></label></li>
+                                               <li><label><input class="try" type="checkbox"><i></i><span>星期三14:00-15:40</span></label></li>
+                                               <li><label><input class="try" type="checkbox"><i></i><span>星期三15:50-17:30</span></label></li>
+                                               <li><label><input class="try" type="checkbox"><i></i><span>星期四8:30-10:10</span></label></li>
+                                               <li><label><input class="try" type="checkbox"><i></i><span>星期四10:20-12:00</span></label></li>
+                                               <li><label><input class="try" type="checkbox"><i></i><span>星期四14:00-15:40</span></label></li>
+                                               <li><label><input class="try" type="checkbox"><i></i><span>星期四15:50-17:30</span></label></li>
+                                               <li><label><input class="try" type="checkbox"><i></i><span>星期五8:30-10:10</span></label></li>
+                                               <li><label><input class="try" type="checkbox"><i></i><span>星期五10:20-12:00</span></label></li>
+                                               <li><label><input class="try" type="checkbox"><i></i><span>星期五14:00-15:40</span></label></li>
+                                               <li><label><input class="try" type="checkbox"><i></i><span>星期五15:50-17:30</span></label></li>
+                                           </ul>
+
+                                       </div>
+
+                                   </div>
+                               </div>
+                               </div><!-- /# card -->
                                <button id="add" class="btn btn-default btn-lg m-b-10 bg-warning border-none m-r-5 sbmt-btn" type="button">添加</button>
                                <button class="btn btn-default btn-lg m-b-10 m-l-5 sbmt-btn" type="reset">清空</button>
                            </div>
@@ -244,16 +327,34 @@
 
             $('#add').click(function(event){
                 event.preventDefault();
+                var tt = $(".try");
+                var t1=""
+                for (let i=0;i<tt.length;i++){
+                    if (tt[i].checked){
+                        t1=t1+"-"+i
+                    }
+                }
+                var cc1 = $(".cc1");
+                var cc=$(".cc")
+                var className=""
+                for (let i=0;i<cc.length;i++){
+                    if (cc[i].checked){
+                        className=className+"-"+cc1[i].textContent
+                    }
+                }
 
                 $.ajax({
-                    url: '/addTeacher',
+                    url: '/addCurriculum',
                     type: 'POST',
                     data:{
-                        "name": $("#name").val(),
-                        "sex": $("#sex").val(),
-                        "workID": $("#workID").val(),
-                        "phone": $("#phone").val(),
-                        "email": $("#email").val()
+                        "ban": t1,
+                        "className":className,
+                        "name":$("#name").val(),
+                        "teacher":$("#teacher").val()[0],
+                        "timeLong":$("#timeLong").val(),
+                        "totalTime":$("#totalTime").val(),
+                        "year":$("#year").val(),
+
 
 
                     },
@@ -261,7 +362,7 @@
 
                         if (data) {
                             alert("添加成功")
-                            window.location.href = "/";
+
                         } else {
                             alert("添加失败")
                         }

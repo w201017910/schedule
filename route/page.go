@@ -28,3 +28,6 @@ func ClassPage(c *gin.Context) {
 func ClassMange(c *gin.Context) {
 	c.HTML(http.StatusOK, "class.html", gin.H{"class": database.AllClass(), "room": database.AllRoom(), "college": database.AllCollege()})
 }
+func CurriculumPage(c *gin.Context) {
+	c.HTML(http.StatusOK, "curriculum.html", gin.H{"teacher": database.AllTeacher()})
+}
