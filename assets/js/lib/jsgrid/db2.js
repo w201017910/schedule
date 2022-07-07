@@ -11,8 +11,8 @@
 
                 return (!filter.Name || client.Name.indexOf(filter.Name) > -1)
                     && (!filter.Number || client.Number === filter.Number)
-                    && (!filter.college || client.college.indexOf(filter.college) > -1)
-                    && (!filter.DefaultRoom || client.DefaultRoom.indexOf(filter.DefaultRoom) > -1);
+                    && (!filter.college || client.college.indexOf(filter.college) > -1);
+
             });
         },
 
@@ -30,7 +30,7 @@
                     Name:updatingClient.Name,
                     Number:updatingClient.Number,
                     college:updatingClient.college,
-                    DefaultRoom:updatingClient.DefaultRoom,
+
 
 
                 },

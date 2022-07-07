@@ -168,18 +168,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="col-md-3">
-                  <div class="basic-form">
-                    <div class="form-group">
-                      <label>默认教室</label>
-                      <select id="room" class="form-control bg-ash border-none">
-                        {{range $i,$v := .room}}
-                        <option >{{$v.Id}}-{{$v.Name}}</option>
-                        {{end}}
-                      </select>
-                    </div>
-                  </div>
-                </div>
+
               </div>
 
 
@@ -250,7 +239,7 @@
           "name": $("#name").val(),
           "number": $("#number").val(),
           "college": $("#college").val(),
-          "room": $("#room").val(),
+
 
 
 

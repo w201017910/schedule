@@ -169,13 +169,26 @@
                                            </div>
                                        </div>
                                    </div>
+                                   <div class="col-md-3">
+                                       <div class="basic-form">
+                                           <div class="form-group">
+                                               <label>授课教室</label>
+                                               <select id="room" class="form-control bg-ash border-none">
+
+                                                   {{range $i,$v := .room}}
+                                                   <option >{{$v.Id}}-{{$v.Name}}-{{$v.Number}}</option>
+                                                   {{end}}
+                                               </select>
+                                           </div>
+                                       </div>
+                                   </div>
                                </div>
 
                                <div class="row">
                                    <div class="col-md-3">
                                        <div class="basic-form">
                                            <div class="form-group">
-                                               <label>总课时</label>
+                                               <label>每周课时</label>
                                                <input id="totalTime" type="text" class="form-control border-none input-flat bg-ash" placeholder="">
                                            </div>
                                        </div>
@@ -188,6 +201,15 @@
                                                    <option>2022年第一学期</option>
                                                    <option>2022年第二学期</option>
                                                </select>
+                                           </div>
+                                       </div>
+                                   </div>
+                                   <div class="col-md-3">
+                                       <div class="basic-form">
+                                           <div class="form-group">
+                                               <label>起始周</label>
+                                               <input id="origin" type="text" class="form-control border-none input-flat bg-ash" placeholder="">
+                                              
                                            </div>
                                        </div>
                                    </div>
@@ -242,7 +264,7 @@
                                </div>
                                <div class="todo-list">
                                    <div class="tdl-holder">
-                                       <div class="tdl-content">
+                                       <div class="tdl-content1">
                                            <ul>
                                                <li><label><input class="try" type="checkbox"><i></i><span>星期一8:30-10:10</span></label></li>
                                                <li><label><input class="try" type="checkbox"><i></i><span>星期一10:20-12:00</span></label></li>
@@ -354,6 +376,8 @@
                         "timeLong":$("#timeLong").val(),
                         "totalTime":$("#totalTime").val(),
                         "year":$("#year").val(),
+                        "origin":$("#origin").val(),
+                        "room":$("#room").val(),
 
 
 

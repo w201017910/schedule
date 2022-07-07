@@ -90,10 +90,10 @@ func AddClass(c *gin.Context) {
 	name := c.PostForm("name")
 	number := c.PostForm("number")
 	college := c.PostForm("college")
-	room := c.PostForm("room")
+
 	collegeId := strings.Split(college, "-")[0]
-	roomId := strings.Split(room, "-")[0]
-	err := database.AddClass(name, number, collegeId, roomId)
+
+	err := database.AddClass(name, number, collegeId)
 	if err != nil {
 		c.JSON(200, false)
 		return
@@ -105,10 +105,10 @@ func ChangeClass(c *gin.Context) {
 	name := c.PostForm("Name")
 	number := c.PostForm("Number")
 	college := c.PostForm("college")
-	DefaultRoom := c.PostForm("DefaultRoom")
+
 	collegeId := strings.Split(college, "-")[0]
-	DefaultRoomId := strings.Split(DefaultRoom, "-")[0]
-	err := database.ChangeClass(id, name, number, collegeId, DefaultRoomId)
+
+	err := database.ChangeClass(id, name, number, collegeId)
 	if err != nil {
 		c.JSON(200, false)
 		return
@@ -132,7 +132,10 @@ func AddCurriculum(c *gin.Context) {
 	timeLong := c.PostForm("timeLong")
 	totalTime := c.PostForm("totalTime")
 	year := c.PostForm("year")
-	err := database.AddCurriculum(name, teacher, timeLong, totalTime, year, className, ban)
+	origin := c.PostForm("origin")
+	room := c.PostForm("room")
+	roomId := strings.Split(room, "-")[0]
+	err := database.AddCurriculum(name, teacher, timeLong, totalTime, year, className, ban, origin, roomId)
 	if err != nil {
 		c.JSON(200, false)
 		return

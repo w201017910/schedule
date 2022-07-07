@@ -169,7 +169,7 @@
     {{end }}];
 
     var classs=[{{range $i,$v := .class}}
-    {Id:{{$v.Id}},Name:{{$v.Name}},Number:{{$v.Number}},"college":"{{$v.CollegeId}}-{{$v.CollegeName}}-{{$v.CampusName}}","DefaultRoom":"{{$v.DefaultRoomId}}-{{$v.RoomName}}-{{$v.RoomNumber}}"},
+    {Id:{{$v.Id}},Name:{{$v.Name}},Number:{{$v.Number}},"college":"{{$v.CollegeId}}-{{$v.CollegeName}}-{{$v.CampusName}}"},
     {{end }}];
 
     var college=[{{range $i,$v := .college}}

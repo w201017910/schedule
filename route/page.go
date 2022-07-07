@@ -23,11 +23,11 @@ func Room(c *gin.Context) {
 	c.HTML(http.StatusOK, "room.html", gin.H{"room": database.AllRoom(), "college": database.AllCollege()})
 }
 func ClassPage(c *gin.Context) {
-	c.HTML(http.StatusOK, "addclass.html", gin.H{"college": database.AllCollege(), "room": database.AllRoom()})
+	c.HTML(http.StatusOK, "addclass.html", gin.H{"college": database.AllCollege()})
 }
 func ClassMange(c *gin.Context) {
 	c.HTML(http.StatusOK, "class.html", gin.H{"class": database.AllClass(), "room": database.AllRoom(), "college": database.AllCollege()})
 }
 func CurriculumPage(c *gin.Context) {
-	c.HTML(http.StatusOK, "curriculum.html", gin.H{"teacher": database.AllTeacher()})
+	c.HTML(http.StatusOK, "curriculum.html", gin.H{"teacher": database.AllTeacher(), "room": database.AllRoom()})
 }
