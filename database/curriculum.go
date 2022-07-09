@@ -37,3 +37,25 @@ func QueryCurriculum(id int) Curriculum {
 	}
 	return curriculum
 }
+func LastIdByCourse() int {
+	rows, err := Db.Query("SELECT MAX(id) from curriculum")
+	defer CloseConnection(rows)
+	if err != nil {
+		fmt.Println(err)
+	}
+	var course int
+
+	if rows.Next() {
+
+		rows.Scan(&course)
+	}
+
+	return course
+}
+func DelCurriculum(id int) error {
+	_, err := Db.Exec("DELETE FROM curriculum WHERE id=?", id)
+	if err != nil {
+		fmt.Println(err)
+	}
+	return err
+}

@@ -5,17 +5,17 @@ import (
 	"github.com/gin-gonic/gin"
 	"schedule/config"
 	"schedule/database"
+	"strconv"
 	"strings"
 )
 
 func Login(c *gin.Context) {
 	account := c.PostForm("account")
 	passwd := c.PostForm("passwd")
-	fmt.Println(account)
-	fmt.Println(passwd)
+
 	if account == config.Account && passwd == config.PassWord {
 		c.SetCookie("name", account, 1000, "/", "localhost", false, true)
-		fmt.Println(true)
+
 		c.JSON(200, true)
 		return
 	}
@@ -29,7 +29,7 @@ func AddTeacher(c *gin.Context) {
 	workID := c.PostForm("workID")
 	phone := c.PostForm("phone")
 	email := c.PostForm("email")
-	fmt.Println(name, sex, workID, phone, email)
+
 	judge := database.TeacherAdd(name, sex, workID, phone, email)
 	if judge {
 		c.JSON(200, true)
@@ -125,8 +125,8 @@ func DelClass(c *gin.Context) {
 	c.JSON(200, true)
 }
 func AddCurriculum(c *gin.Context) {
-	ban := c.PostForm("ban")
-	className := c.PostForm("className")
+	ban := c.PostForm("ban")[1:]
+	className := c.PostForm("className")[1:]
 	name := c.PostForm("name")
 	teacher := c.PostForm("teacher")
 	timeLong := c.PostForm("timeLong")
@@ -136,9 +136,103 @@ func AddCurriculum(c *gin.Context) {
 	room := c.PostForm("room")
 	roomId := strings.Split(room, "-")[0]
 	err := database.AddCurriculum(name, teacher, timeLong, totalTime, year, className, ban, origin, roomId)
+	courseId := database.LastIdByCourse()
+
+	classes := strings.Split(className, "-")
+
+	TimeLong, _ := strconv.Atoi(timeLong)
+	weekTime, _ := strconv.Atoi(totalTime)
+	originWeek, _ := strconv.Atoi(origin)
+
 	if err != nil {
 		c.JSON(200, false)
 		return
 	}
-	c.JSON(200, true)
+	if len(classes) > 1 {
+		jj := mulSort(strconv.Itoa(courseId), name, teacher, TimeLong, weekTime, year, originWeek, roomId, classes, ban)
+		err = database.DelCurriculum(courseId)
+		c.JSON(200, jj)
+	}
+	c.JSON(200, false)
+}
+
+type CC struct {
+	courseId string
+	clasTime int
+	classes  string
+	RoomId   string
+	mul      int
+}
+
+func mulSort(courseId, name, teacher string, timeLong, weekTime int, year string, originWeek int, roomId string, classes []string, forbidden string) bool {
+	count := 0
+
+	var cc []CC
+	var cla [][16][20]database.Course
+	for i := 0; i < len(classes); i++ {
+		cla = append(cla, database.CreateByClass(classes[i], year))
+	}
+	var rooms []string
+	rooms = append(rooms, roomId)
+	rooms = append(rooms, database.SearchRoom(classes, roomId)...)
+	room := database.CreateByRoom(roomId, year)
+	tea := database.CreateByTeacher(teacher, year)
+
+	for _, v := range rooms {
+		for j := 0; j < 20; j++ {
+			if strings.Contains(forbidden, strconv.Itoa(j)) {
+				continue
+			}
+
+			judge := false
+			for i := originWeek - 1; i < originWeek+timeLong-1; i++ {
+				fmt.Println("i:", i, "j:", j, "room:", room[i][j].Exist, "tea:", tea[i][j].Exist, "cla:", Judge(cla, i, j))
+				if (room[i][j].Exist || tea[i][j].Exist) || Judge(cla, i, j) {
+
+					judge = true
+					break
+				}
+			}
+			if !judge {
+				for i := 0; i < len(classes); i++ {
+
+					cc = append(cc, CC{
+						courseId: courseId,
+						clasTime: j,
+						classes:  classes[i],
+						RoomId:   v,
+						mul:      1,
+					})
+
+				}
+				count++
+				if count == weekTime {
+					goto scan
+				}
+			}
+		}
+	}
+scan:
+
+	if count == weekTime {
+
+		for _, v := range cc {
+			database.AddCourse(v.courseId, v.clasTime, v.classes, v.RoomId, v.mul)
+		}
+		return true
+	} else {
+
+	}
+	return false
+
+}
+func Judge(a [][16][20]database.Course, i, j int) bool {
+	d := false
+	for c := 0; c < len(a); c++ {
+		if a[c][i][j].Exist {
+			d = true
+			break
+		}
+	}
+	return d
 }

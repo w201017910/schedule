@@ -1,6 +1,9 @@
 package database
 
-import "fmt"
+import (
+	"fmt"
+	"strconv"
+)
 
 type College struct {
 	Id    int
@@ -70,4 +73,54 @@ func DelRoom(ID string) error {
 		fmt.Println(err)
 	}
 	return err
+}
+func SearchRoom(cla []string, roomId string) []string {
+	collegeId, num := SearchCollege(cla)
+	sql := "SELECT id FROM classroom WHERE classroom.number >= ? AND classroom.collegeId IN ("
+	fmt.Println(collegeId)
+	for i := 0; i < len(collegeId)-1; i++ {
+
+		sql = sql + strconv.Itoa(collegeId[i]) + ","
+	}
+	sql = sql + strconv.Itoa(collegeId[len(collegeId)-1]) + ")"
+	fmt.Println(sql)
+	rows, err := Db.Query(sql, num)
+	defer CloseConnection(rows)
+	if err != nil {
+		fmt.Println(err)
+	}
+	var rooms []string
+scan:
+	if rows.Next() {
+		var room string
+		rows.Scan(&room)
+		if room == roomId {
+			goto scan
+		}
+		rooms = append(rooms, room)
+		goto scan
+	}
+	return rooms
+}
+func SearchCollege(cla []string) ([]int, int) {
+	var c []int
+	num := 0
+	for _, v := range cla {
+		rows, err := Db.Query("SELECT collegeId,number FROM class WHERE id=?", v)
+		defer CloseConnection(rows)
+		if err != nil {
+			fmt.Println(err)
+		}
+
+		if rows.Next() {
+			var test int
+			var num1 int
+			rows.Scan(&test, &num1)
+			num = num + num1
+			c = append(c, test)
+
+		}
+	}
+
+	return c, num
 }

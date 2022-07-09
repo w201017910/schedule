@@ -23,6 +23,8 @@ func Init() {
 	fmt.Println(conSte)
 	var err error
 	Db, err = sql.Open("mysql", conSte)
+	Db.SetMaxOpenConns(2000)
+	Db.SetMaxIdleConns(1000)
 	if err != nil {
 		fmt.Print(err)
 	}
