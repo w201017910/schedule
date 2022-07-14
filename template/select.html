@@ -102,7 +102,7 @@
                 <div class="col-lg-8 p-r-0 title-margin-right">
                     <div class="page-header">
                         <div class="page-title">
-                            <h1>添加教师</h1>
+                            <h1>查询课表</h1>
                         </div>
                     </div>
                 </div>
@@ -117,12 +117,12 @@
                 <!-- /# column -->
             </div>
             <!-- /# row -->
-            <form>
+            <form action="/course.html" method="get">
                 <section id="main-content">
                     <div class="card alert">
                         <div class="card-body">
                             <div class="card-header m-b-20">
-                                <h4>教师信息</h4>
+                                <h4>输入信息</h4>
                                 <div class="card-header-right-icon">
                                     <ul>
                                         <li class="card-close" data-dismiss="alert"><i class="ti-close"></i></li>
@@ -142,21 +142,11 @@
                                 <div class="col-md-3">
                                     <div class="basic-form">
                                         <div class="form-group">
-                                            <label>教室名称</label>
-                                            <input id="name" type="text" class="form-control border-none input-flat bg-ash" placeholder="">
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-3">
-                                    <div class="basic-form">
-                                        <div class="form-group">
-                                            <label>所属学院</label>
-                                            <select id="college" class="form-control bg-ash border-none">
-
-                                                {{range $i,$v := .room}}
-                                                <option >{{$v.Id}}-{{$v.Name}}-{{$v.Name1}}</option>
-                                                {{end}}
+                                            <label>类型</label>
+                                            <select name="type" class="form-control bg-ash border-none">
+                                                <option>教师</option>
+                                                <option>班级</option>
+                                                <option>教室</option>
                                             </select>
                                         </div>
                                     </div>
@@ -164,15 +154,29 @@
                                 <div class="col-md-3">
                                     <div class="basic-form">
                                         <div class="form-group">
-                                            <label>最大容纳量</label>
-                                            <input id="number" type="text" class="form-control border-none input-flat bg-ash" placeholder="">
+                                            <label>id</label>
+                                            <input name="id" type="text" class="form-control border-none input-flat bg-ash" placeholder="">
                                         </div>
                                     </div>
                                 </div>
+                                <div class="col-md-3">
+                                    <div class="basic-form">
+                                        <div class="form-group">
+                                            <label>学年</label>
+                                            <select name="year" class="form-control bg-ash border-none">
+                                                <option>2022年第一学期</option>
+                                                <option>2022年第二学期</option>
+
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+
                             </div>
 
 
-                            <button id="add" class="btn btn-default btn-lg m-b-10 bg-warning border-none m-r-5 sbmt-btn" type="button">添加</button>
+                            <button id="add" class="btn btn-default btn-lg m-b-10 bg-warning border-none m-r-5 sbmt-btn" type="submit">查询</button>
                             <button class="btn btn-default btn-lg m-b-10 m-l-5 sbmt-btn" type="reset">清空</button>
                         </div>
                     </div>
@@ -223,37 +227,6 @@
 
 
 
-<script>
-    $(function(){
-
-        $('#add').click(function(event){
-            event.preventDefault();
-
-            $.ajax({
-                url: '/addRoom',
-                type: 'POST',
-                data:{
-                    "name": $("#name").val(),
-                    "college": $("#college").val(),
-                    "number": $("#number").val(),
-
-
-
-                },
-                success: function(data){
-
-                    if (data) {
-                        alert("添加成功")
-                        location.reload();
-                    } else {
-                        alert("添加失败")
-                    }
-                }
-            });
-        });
-    });
-
-</script>
 
 </body>
 

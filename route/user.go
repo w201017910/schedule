@@ -214,8 +214,6 @@ scan:
 			database.AddCourse(v.courseId, v.clasTime, v.classes, v.RoomId, v.mul)
 		}
 		return true
-	} else {
-
 	}
 	return false
 }

@@ -1,6 +1,7 @@
 package route
 
 import (
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"schedule/database"
@@ -32,5 +33,26 @@ func CurriculumPage(c *gin.Context) {
 	c.HTML(http.StatusOK, "curriculum.html", gin.H{"teacher": database.AllTeacher(), "room": database.AllRoom()})
 }
 func CoursePage(c *gin.Context) {
-	c.HTML(http.StatusOK, "course.html", gin.H{"course": database.CreateByClass("3", "2022年第一学期")})
+	Type := c.Query("type")
+	id := c.Query("id")
+	year := c.Query("year")
+	var course [16][20]database.Course
+	fmt.Println(Type)
+	fmt.Println(id)
+	fmt.Println(year)
+	if Type == "教室" {
+		course = database.CreateByRoom(id, year)
+		fmt.Println("教室")
+	} else if Type == "教师" {
+		course = database.CreateByTeacher(id, year)
+		fmt.Println("教师")
+	} else if Type == "班级" {
+		course = database.CreateByClass(id, year)
+		fmt.Println("班级")
+	}
+
+	c.HTML(http.StatusOK, "course.html", gin.H{"course": course})
+}
+func SelectPage(c *gin.Context) {
+	c.HTML(http.StatusOK, "select.html", gin.H{})
 }
