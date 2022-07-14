@@ -31,3 +31,6 @@ func ClassMange(c *gin.Context) {
 func CurriculumPage(c *gin.Context) {
 	c.HTML(http.StatusOK, "curriculum.html", gin.H{"teacher": database.AllTeacher(), "room": database.AllRoom()})
 }
+func CoursePage(c *gin.Context) {
+	c.HTML(http.StatusOK, "course.html", gin.H{"course": database.CreateByClass("3", "2022年第一学期")})
+}

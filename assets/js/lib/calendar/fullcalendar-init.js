@@ -148,7 +148,7 @@
         var $this = this;
         $this.$calendarObj = $this.$calendar.fullCalendar({
             slotDuration: '00:15:00', /* If we want to split day time each 15minutes */
-            minTime: '08:00:00',
+            minTime: '07:00:00',
             maxTime: '19:00:00',  
             defaultView: 'month',  
             handleWindowResize: true,   

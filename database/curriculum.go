@@ -13,10 +13,11 @@ type Curriculum struct {
 	ForbiddenTime string
 	OriginWeek    int
 	RoomId        int
+	interval      int
 }
 
-func AddCurriculum(name, teacher, timeLong, totalTime, semester, cla, forbid, origin, roomId string) error {
-	_, err := Db.Exec("INSERT INTO `schedule`.`curriculum`(`name`, `teacherId`, `timeLong`, `totalTime`, `semester`, `cla`, `forbiddenTime`, `originWeek`,roomId) VALUES (?, ?, ?, ?, ?, ?, ?, ?,?)", name, teacher, timeLong, totalTime, semester, cla, forbid, origin, roomId)
+func AddCurriculum(name, teacher, timeLong, totalTime, semester, cla, forbid, origin, roomId string, interval int) error {
+	_, err := Db.Exec("INSERT INTO `schedule`.`curriculum`(`name`, `teacherId`, `timeLong`, `totalTime`, `semester`, `cla`, `forbiddenTime`, `originWeek`,roomId,`interval`) VALUES (?, ?, ?, ?, ?, ?, ?, ?,?,?)", name, teacher, timeLong, totalTime, semester, cla, forbid, origin, roomId, interval)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -32,7 +33,7 @@ func QueryCurriculum(id int) Curriculum {
 
 	if rows.Next() {
 
-		rows.Scan(&curriculum.Id, &curriculum.Name, &curriculum.TeacherId, &curriculum.TimeLong, &curriculum.TotalTime, &curriculum.Semester, &curriculum.Cla, &curriculum.ForbiddenTime, &curriculum.OriginWeek, &curriculum.RoomId)
+		rows.Scan(&curriculum.Id, &curriculum.Name, &curriculum.TeacherId, &curriculum.TimeLong, &curriculum.TotalTime, &curriculum.Semester, &curriculum.Cla, &curriculum.ForbiddenTime, &curriculum.OriginWeek, &curriculum.RoomId, &curriculum.interval)
 
 	}
 	return curriculum

@@ -49,3 +49,18 @@ func DelClass(id string) error {
 	}
 	return err
 }
+func QueryClassName(id int) string {
+	rows, err := Db.Query("SELECT `name` FROM class WHERE id = ?", id)
+	defer CloseConnection(rows)
+	if err != nil {
+		fmt.Println(err)
+	}
+	var name string
+
+	if rows.Next() {
+
+		rows.Scan(&name)
+
+	}
+	return name
+}

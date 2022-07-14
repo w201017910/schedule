@@ -15,14 +15,18 @@
 
 
     $('#bootstrap-data-table-export').DataTable({
+
+		ordering: false,
         dom: 'lBfrtip',
-        lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
+        lengthMenu: [[4], [4]],
         buttons: [
             'copy', 'csv', 'excel', 'pdf', 'print'
         ]
     });
 	
 	$('#row-select').DataTable( {
+
+
 			initComplete: function () {
 				this.api().columns().every( function () {
 					var column = this;
@@ -39,6 +43,7 @@
 						} );
 	 
 					column.data().unique().sort().each( function ( d, j ) {
+
 						select.append( '<option value="'+d+'">'+d+'</option>' )
 					} );
 				} );

@@ -65,3 +65,18 @@ func ChangeTeacher(ID, name, sex, phone, email, workId string) error {
 	}
 	return err
 }
+func QueryTeacherName(id int) string {
+	rows, err := Db.Query("SELECT `name` FROM teacher WHERE id = ?", id)
+	defer CloseConnection(rows)
+	if err != nil {
+		fmt.Println(err)
+	}
+	var name string
+
+	if rows.Next() {
+
+		rows.Scan(&name)
+
+	}
+	return name
+}

@@ -134,8 +134,9 @@ func AddCurriculum(c *gin.Context) {
 	year := c.PostForm("year")
 	origin := c.PostForm("origin")
 	room := c.PostForm("room")
+	interval, _ := strconv.Atoi(c.PostForm("interval"))
 	roomId := strings.Split(room, "-")[0]
-	err := database.AddCurriculum(name, teacher, timeLong, totalTime, year, className, ban, origin, roomId)
+	err := database.AddCurriculum(name, teacher, timeLong, totalTime, year, className, ban, origin, roomId, interval)
 	courseId := database.LastIdByCourse()
 
 	classes := strings.Split(className, "-")
@@ -149,11 +150,74 @@ func AddCurriculum(c *gin.Context) {
 		return
 	}
 	if len(classes) > 1 {
-		jj := mulSort(strconv.Itoa(courseId), name, teacher, TimeLong, weekTime, year, originWeek, roomId, classes, ban)
-		err = database.DelCurriculum(courseId)
+		jj := mulSort(strconv.Itoa(courseId), name, teacher, TimeLong, weekTime, year, originWeek, roomId, interval, classes, ban)
+		if !jj {
+			err = database.DelCurriculum(courseId)
+		}
+		c.JSON(200, jj)
+	} else {
+		jj := Sort(strconv.Itoa(courseId), name, teacher, TimeLong, weekTime, year, originWeek, roomId, interval, classes, ban)
+		if !jj {
+			err = database.DelCurriculum(courseId)
+		}
 		c.JSON(200, jj)
 	}
 	c.JSON(200, false)
+}
+func Sort(courseId, name, teacher string, timeLong, weekTime int, year string, originWeek int, roomId string, interval int, classes []string, forbidden string) bool {
+	count := 0
+
+	var cc []CC
+	var cla [16][20]database.Course
+	cla = database.CreateByClass(classes[0], year)
+	var rooms []string
+	rooms = append(rooms, roomId)
+	rooms = append(rooms, database.SearchRoom(classes, roomId)...)
+	room := database.CreateByRoom(roomId, year)
+	tea := database.CreateByTeacher(teacher, year)
+	for _, v := range rooms {
+		for j := 0; j < 20; j++ {
+			if strings.Contains(forbidden, strconv.Itoa(j)) {
+				continue
+			}
+
+			judge := false
+			for i := originWeek - 1; i < originWeek+timeLong-1; i = i + interval + 1 {
+				fmt.Println("i:", i, "j:", j, "room:", room[i][j].Exist, "tea:", tea[i][j].Exist, "cla:", cla[i][j].Exist)
+				if (room[i][j].Exist || tea[i][j].Exist) || cla[i][j].Exist {
+
+					judge = true
+					break
+				}
+			}
+			if !judge {
+				cc = append(cc, CC{
+					courseId: courseId,
+					clasTime: j,
+					classes:  classes[0],
+					RoomId:   v,
+					mul:      1,
+				})
+
+				count++
+				if count == weekTime {
+					goto scan
+				}
+			}
+		}
+	}
+scan:
+
+	if count == weekTime {
+
+		for _, v := range cc {
+			database.AddCourse(v.courseId, v.clasTime, v.classes, v.RoomId, v.mul)
+		}
+		return true
+	} else {
+
+	}
+	return false
 }
 
 type CC struct {
@@ -164,7 +228,7 @@ type CC struct {
 	mul      int
 }
 
-func mulSort(courseId, name, teacher string, timeLong, weekTime int, year string, originWeek int, roomId string, classes []string, forbidden string) bool {
+func mulSort(courseId, name, teacher string, timeLong, weekTime int, year string, originWeek int, roomId string, interval int, classes []string, forbidden string) bool {
 	count := 0
 
 	var cc []CC
@@ -185,7 +249,7 @@ func mulSort(courseId, name, teacher string, timeLong, weekTime int, year string
 			}
 
 			judge := false
-			for i := originWeek - 1; i < originWeek+timeLong-1; i++ {
+			for i := originWeek - 1; i < originWeek+timeLong-1; i = i + interval + 1 {
 				fmt.Println("i:", i, "j:", j, "room:", room[i][j].Exist, "tea:", tea[i][j].Exist, "cla:", Judge(cla, i, j))
 				if (room[i][j].Exist || tea[i][j].Exist) || Judge(cla, i, j) {
 

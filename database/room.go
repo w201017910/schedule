@@ -124,3 +124,18 @@ func SearchCollege(cla []string) ([]int, int) {
 
 	return c, num
 }
+func QueryRoomName(id int) string {
+	rows, err := Db.Query("SELECT `name` FROM classroom WHERE id = ?", id)
+	defer CloseConnection(rows)
+	if err != nil {
+		fmt.Println(err)
+	}
+	var name string
+
+	if rows.Next() {
+
+		rows.Scan(&name)
+
+	}
+	return name
+}
